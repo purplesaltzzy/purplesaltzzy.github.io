@@ -1,0 +1,216 @@
+:root {
+    --bg: #071033;
+    --card: #0d1b3a;
+    --accent: #1e90ff;
+    --text: #ffffff
+}
+* {
+    box-sizing: border-box
+/* === 提取自 index.html 的样式（优化与整理） === */
+/* 全局与布局 */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: 'Segoe UI', 'Roboto', 'Noto Sans', 'Microsoft YaHei', sans-serif;
+  background: linear-gradient(145deg,#f0f4fa 0%,#e9eef4 100%);
+  color: #1a2c3e;
+  -webkit-font-smoothing: antialiased;
+}
+:root { --fzu-navy: #0a2b4e; --fzu-gold: #c7a252; --fzu-light: #eef3fc; --muted: #7f8c8d }
+.container { max-width: 1280px; margin: 0 auto; padding: 0 24px }
+
+/* Header */
+.header { background: var(--fzu-navy); position: sticky; top: 0; z-index: 100; border-bottom: 3px solid var(--fzu-gold) }
+.navbar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; padding: .8rem 0 }
+.logo h1 { color: #fff; font-size: 1.6rem; margin: 0 }
+.logo p { color: rgba(255,255,240,.85); font-size: .72rem; margin-top: 4px }
+.nav-links { display: flex; gap: 1.4rem; list-style: none; margin: 0; padding: 0 }
+.nav-links a { color: #f0f3f8; text-decoration: none; font-weight: 500; padding: .4rem 0; border-bottom: 2px solid transparent }
+.nav-links a:hover { border-bottom-color: var(--fzu-gold); color: var(--fzu-gold) }
+
+/* 基础布局 */
+section { margin: 3rem 0 }
+.card { background: #fff; border-radius: 20px; padding: 1.6rem; box-shadow: 0 20px 25px -12px rgba(0,0,0,0.08) }
+.section-title { font-size: 1.6rem; font-weight: 700; border-left: 6px solid var(--fzu-gold); padding-left: 1rem; margin-bottom: 1rem; color: var(--fzu-navy) }
+
+/* About */
+.about-grid { display: flex; gap: 1.4rem; align-items: center; flex-wrap: wrap }
+.about-text { flex: 1.2; color: #2c3e4e }
+.about-img { flex: 0.9; border-radius: 18px; overflow: hidden }
+.about-img img { width: 100%; height: auto; display: block }
+
+/* Gallery */
+.campus-gallery { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center }
+.gallery-item { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.06); min-width: 160px }
+.gallery-item img { width: 100%; height: 140px; object-fit: cover }
+.gallery-item p { padding: 8px; text-align: center; color: var(--fzu-navy); margin: 0 }
+
+/* Message board */
+.message-board { background: #ffffffea }
+.input-group { display: flex; gap: 12px; align-items: center; margin-bottom: 12px }
+.input-group label { width: 70px; font-weight: 600; color: var(--fzu-navy) }
+input[type="text"], textarea { flex: 1; padding: 10px 14px; border: 1px solid #cfdfed; border-radius: 12px; background: #fff }
+textarea { min-height: 84px; resize: vertical }
+input:focus, textarea:focus { outline: none; box-shadow: 0 0 0 3px rgba(199,162,82,0.12); border-color: var(--fzu-gold) }
+.submit-btn { background: var(--fzu-navy); color: #fff; border: none; padding: 10px 18px; border-radius: 999px; cursor: pointer }
+.submit-btn:active { transform: translateY(1px) }
+.actions { display: flex; gap: 8px; align-items: center }
+
+.messages-container { margin-top: 12px; background: #f8fafd; border-radius: 12px; padding: 12px; max-height: 380px; overflow: auto }
+.message-card { background: #fff; border-radius: 12px; padding: 10px; margin-bottom: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.03); border-left: 4px solid var(--fzu-gold); display:flex; justify-content: space-between; gap:12px }
+.message-meta { display:flex; align-items:center; gap:8px }
+.msg-time { font-size: .72rem; color: var(--muted) }
+.empty-msg { text-align:center; color: #8ba0b0; padding: 1.2rem }
+.msg-controls { display:flex; gap:6px; align-items:center }
+.btn-small { background: transparent; border: 1px solid #e3e7ec; padding:6px 8px; border-radius:8px; cursor:pointer; font-size:.9rem }
+
+footer { background: var(--fzu-navy); color: #cad2db; text-align:center; padding: 1.2rem 0; margin-top: 2rem; border-top: 1px solid var(--fzu-gold) }
+
+@media(max-width:700px){ .navbar{ flex-direction: column } .about-grid{ flex-direction: column } .message-card{ flex-direction: column; align-items:flex-start } }
+}
+
+body {
+    margin: 0;
+    font-family: Segoe UI, Roboto, 'Helvetica Neue', Arial;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 16px
+}
+
+.site-header {
+    background: linear-gradient(90deg, #071033 0%, #0b1630 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04)
+}
+
+.site-header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between
+}
+
+.logo {
+    margin: 12px 0;
+    font-size: 20px
+}
+
+.main-nav a {
+    color: var(--text);
+    text-decoration: none;
+    margin-left: 16px;
+    padding: 8px;
+    border-radius: 6px
+}
+
+.main-nav a:hover {
+    background: rgba(255, 255, 255, 0.04)
+}
+
+.banner {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 24px 0
+}
+
+.banner img {
+    max-width: 480px;
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5)
+}
+
+.banner-text {
+    font-size: 22px
+}
+
+.about {
+    background: var(--card);
+    padding: 16px;
+    border-radius: 8px;
+    margin: 16px 0
+}
+
+.guestbook {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 16px;
+    border-radius: 8px
+}
+
+form#guestForm {
+    display: flex;
+    flex-direction: column;
+    gap: 8px
+}
+
+form#guestForm input,
+form#guestForm textarea {
+    width: 100%;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: transparent;
+    color: var(--text)
+}
+
+form#guestForm button {
+    align-self: flex-start;
+    padding: 8px 16px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer
+}
+
+form#guestForm button:hover {
+    opacity: 0.95
+}
+
+.messages {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px
+}
+
+.message {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.03)
+}
+
+.message .meta {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 6px
+}
+
+.site-footer {
+    padding: 12px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 24px
+}
+
+@media(max-width:760px) {
+    .site-header .container {
+        flex-direction: column;
+        align-items: flex-start
+    }
+
+    .banner {
+        flex-direction: column
+    }
+
+    .main-nav a {
+        margin-left: 8px
+    }
+}

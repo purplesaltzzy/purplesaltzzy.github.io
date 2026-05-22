@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>福州大学 | 明德至诚 博学远志</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header">
+    <div class="container">
+        <div class="navbar">
+            <div class="logo">
+                <h1>福州大学</h1>
+                <p>FUZHOU UNIVERSITY · 明德至诚 博学远志</p>
+            </div>
+            <ul class="nav-links" role="navigation" aria-label="主导航">
+                <li><a href="#">🏠 首页</a></li>
+                <li><a href="#about">📖 关于福大</a></li>
+                <li><a href="#messageboard">💬 留言板</a></li>
+                <li><a href="#campus">📸 校园风光</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+<main class="container">
+    <section id="about">
+        <div class="card">
+            <h2 class="section-title">🏛️ 榕城学府 · 六秩芳华</h2>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p><strong>福州大学</strong> 创建于1958年，是国家“双一流”建设高校、国家“211工程”重点建设大学。学校坐落在东南沿海明珠——福建省福州市，现有旗山、怡山、铜盘等多个校区，办学底蕴深厚。</p>
+                    <p>建校以来，福大始终秉承<b>“明德至诚，博学远志”</b>的校训，坚持理工结合、文理渗透，已成为以工为主、理工结合，多学科协调发展的知名学府。从这里走出了无数杰出科学家、工程师与社会栋梁，为国家建设贡献福大智慧。</p>
+                </div>
+                <div class="about-img">
+                    <img src="https://picsum.photos/id/104/500/320" alt="福州大学校园风光示意" onerror="this.src='https://picsum.photos/id/20/500/320'" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="campus">
+        <div class="card">
+            <h2 class="section-title">📷 福大 · 光影瞬间</h2>
+            <div class="campus-gallery">
+                <div class="gallery-item"><img src="https://picsum.photos/id/96/400/220" alt="旗山校区图书馆"><p>📚 宏晖图书馆 · 知识殿堂</p></div>
+                <div class="gallery-item"><img src="https://picsum.photos/id/15/400/220" alt="福友阁"><p>🍃 福友阁 · 人文湖畔</p></div>
+                <div class="gallery-item"><img src="https://picsum.photos/id/26/400/220" alt="晋江楼"><p>🏢 晋江楼 · 科研高地</p></div>
+                <div class="gallery-item"><img src="https://picsum.photos/id/28/400/220" alt="青春操场"><p>⚽ 第一田径场 · 青春活力</p></div>
+            </div>
+            <p style="text-align:center;margin-top:12px;color:#4a627a;font-style:italic;">四季福大，一草一木皆风景</p>
+        </div>
+    </section>
+
+    <section id="messageboard">
+        <div class="card message-board">
+            <h2 class="section-title">💌 福大心声 · 留言板</h2>
+            <p style="margin-bottom:12px;color:#2c5a7a;">留下你对福大的祝福、建议或校园回忆，大家的留言会展示在下方的福大留言墙✨</p>
+
+            <form id="messageForm" aria-label="留言表单">
+                <div class="input-group">
+                    <label for="nicknameInput">👤 昵称</label>
+                    <input type="text" id="nicknameInput" name="nickname" placeholder="例如：福大学子、旗山小柚子" maxlength="30" autocomplete="name">
+                </div>
+                <div class="input-group">
+                    <label for="messageContent">💬 留言内容</label>
+                    <textarea id="messageContent" name="content" rows="3" placeholder="分享你的想法，对母校的热爱或期待..." required></textarea>
+                </div>
+                <div style="display:flex;justify-content:flex-end;gap:8px;align-items:center;margin-bottom:8px;">
+                    <div class="actions">
+                        <button type="button" id="clearAllBtn" class="btn-small" title="清空所有留言">清空留言</button>
+                        <button type="button" id="exportBtn" class="btn-small" title="导出留言为 JSON">导出留言</button>
+                    </div>
+                    <button type="submit" class="submit-btn" id="submitMessageBtn">📮 提交留言</button>
+                </div>
+            </form>
+
+            <div class="messages-container" id="messagesList" role="region" aria-live="polite">
+                <div class="empty-msg">✨ 还没有留言，来做第一个留言的福大人吧 ✨</div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container"><p>© 2025 福州大学 | 明德至诚 博学远志</p></div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
